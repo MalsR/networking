@@ -29,3 +29,5 @@ traceroute --max-hops=50 www.google.com #change max hops to 50 with each hop sen
 *tcpdump*
 sudo tcpdump -n -c5 -i eth0 port 22 #5 packets captured
 
+printf 'HEAD / HTTP/1.1\r\nHost: www.udacity.com\r\n\r\n' | nc www.udacity.com 80
+
