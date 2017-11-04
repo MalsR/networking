@@ -29,5 +29,33 @@ traceroute --max-hops=50 www.google.com #change max hops to 50 with each hop sen
 *tcpdump*
 sudo tcpdump -n -c5 -i eth0 port 22 #5 packets captured
 
-printf 'HEAD / HTTP/1.1\r\nHost: www.udacity.com\r\n\r\n' | nc www.udacity.com 80
+*netcat*
+Simple program to talk to internet services, thin wrapper around tcp. Lower layer tool than curl for e.g. 
+
+Separationg of Layers. Netcat does not know anything about talking to a server in http but by using printf you can format HTTP Header information and send this string over the wire to an internet service. The server at the receiving end will send a response (HTTP). 
+
+printf 'HEAD / HTTP/1.1\r\nHost: www.google.com\r\n\r\n' | nc www.google.com 80
+HTTP/1.1 302 Found
+Cache-Control: private
+Content-Type: text/html; charset=UTF-8
+Referrer-Policy: no-referrer
+Location: http://www.google.co.uk/?gfe_rd=cr&dcr=0&ei=G5T7WfzIIK-GtgfEwp24Bg
+Content-Length: 271
+Date: Thu, 02 Nov 2017 21:54:35 GMT
+
+printf 'HEAD / HTTP/1.1\r\nHost: www.google.co.uk\r\n\r\n' | nc www.google.com 80
+HTTP/1.1 200 OK
+Date: Thu, 02 Nov 2017 21:54:49 GMT
+Expires: -1
+Cache-Control: private, max-age=0
+Content-Type: text/html; charset=ISO-8859-1
+P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+Server: gws
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+Set-Cookie: 1P_JAR=2017-11-02-21; expires=Thu, 09-Nov-2017 21:54:49 GMT; path=/; domain=.google.co.uk
+Set-Cookie: NID=116=hag44b-d9Ig_A7Fc7Hilf7gWUaN1Kdhzb5-lEfzytD3vssn4leF9pe0VWQZd9q7SI3vI84Xi3rvJntiw4cDX8ml1tGOVigWlR_roldo55hmTIHiFLS01pfwHUE2vKbha; expires=Fri, 04-May-2018 21:54:49 GMT; path=/; domain=.google.co.uk; HttpOnly
+Transfer-Encoding: chunked
+Accept-Ranges: none
+Vary: Accept-Encoding
 
