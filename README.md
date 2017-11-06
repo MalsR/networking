@@ -33,8 +33,7 @@ sudo tcpdump -n -c5 -i eth0 port 22 #5 packets captured
 Simple program to talk to internet services, forms a thin wrapper around tcp. Lower layer tool than curl for e.g. 
 
 - Using netcat to talk to google and get an HTTP response back.
-
-  Separationg of Layers. Netcat does not know anything about talking to a server in HTTP (forming HTTP requests) but by using `printf` you can format HTTP Header information and send this string over the wire to an internet service. The server at the receiving end will send a response (HTTP). 
+  Separationg of Layers. Netcat does not know anything about talking to a server in HTTP or making an HTTP request but by using `printf` you can make a HTTP request and this gets sent as a string over the wire to an internet service. The server at the receiving end will send a response (HTTP) as the request looks familiar to an HTTP request, i.e. HEAD etc that requests from the server to send header details. 
   
 ```
 printf 'HEAD / HTTP/1.1\r\nHost: www.google.co.uk\r\n\r\n' | nc www.google.com 80
