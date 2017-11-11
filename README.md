@@ -1,19 +1,21 @@
-## Setting up vagrant box
+Small project I created while I was learning about networking, i.e. fundamentals, programms you can use to diagnose networks and understanding the layers.  
+
+### Setting up [vagrant](https://www.vagrantup.com/downloads.html) box
 
 vagrant init ubuntu/trusty64
 vagrant up
 vagrant ssh
 
-*ip*
+### *ip*
 ip addr
 ip addr show eth0
 ip route help
 ip route list
 
-*ping*
+### *ping*
 ping -c3 8.8.8.8
 
-*host*
+### *host*
 host -t aaaa google.com 
 
 host 8.8.8.8 #resolve google dns
@@ -21,12 +23,12 @@ host 8.8.8.8 #resolve google dns
 
 host -t mx udacity.com
 
-*traceroute*
+### *traceroute*
 combining `ping` and `host` as a network diagnostic tool.
 traceroute www.google.com #by default 30 hops
 traceroute --max-hops=50 www.google.com #change max hops to 50 with each hop sending 3 packets by default
 
-*tcpdump*
+###   *tcpdump*
 sudo tcpdump -n -c5 -i eth0 port 22 #5 packets captured
 
 ### [netcat](https://linux.die.net/man/1/nc)
@@ -53,7 +55,6 @@ Transfer-Encoding: chunked
 Accept-Ranges: none
 Vary: Accept-Encoding
 ```
-
 
 Below command gives us a [302](https://en.wikipedia.org/wiki/HTTP_302) since google is telling us to redirect to www.google.co.uk (in localtion). A Browser will make a subsequent call to the new location provided in the response. 
 
@@ -92,6 +93,30 @@ Transfer-Encoding: chunked
 <!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="en-GB"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"><meta content="/logos/doodles/2017/celebrating-pad-thai-5712000859504640-l.png" itemprop="image"><meta content="Celebrating Pad Thai" property="twitter:title"><meta content="Celebrating Pad Thai! #GoogleDoodle" property="twitter:description"><meta content="Celebrating Pad Thai! #GoogleDoodle" property="og:description"><meta content="summary_large_image" property="twitter:card"><meta content="@GoogleDoodles" property="twitter:site"><meta content="https://www.google.com/logos/doodles/2017/celebrating-pad-thai-5712000859504640-l.png" property="twitter:image"><meta content="https://www.google.com/logos/doodles/2017/celebrating-pad-thai-5712000859504640-l.png" property="og:image"><meta content="500
 
 ```
+- Using an undefined HTTP verb or request when talking to an internet service
 
+```
+printf 'HEAD-MALSR / HTTP/1.1\r\nHost: www.google.co.uk\r\n\r\n' | nc www.google.co.uk 80
+
+HTTP/1.1 405 Method Not Allowed
+Content-Type: text/html; charset=UTF-8
+Referrer-Policy: no-referrer
+Content-Length: 1595
+Date: Sat, 11 Nov 2017 12:21:37 GMT
+
+<!DOCTYPE html>
+<html lang=en>
+  <meta charset=utf-8>
+  <meta name=viewport content="initial-scale=1, minimum-scale=1, width=device-width">
+  <title>Error 405 (Method Not Allowed)!!1</title>
+  <style>
+    *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}
+  </style>
+  <a href=//www.google.com/><span id=logo aria-label=Google></span></a>
+  <p><b>405.</b> <ins>That’s an error.</ins>
+  <p>The request method <code>HEAD-MALSR</code> is inappropriate for the URL <code>/</code>.  <ins>That’s all we know.</ins>
+```
+todo
+- demonstrate HTTP verbs with netcat
 
 Lookup reset packet/RST
