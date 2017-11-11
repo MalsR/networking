@@ -23,6 +23,9 @@ host 8.8.8.8 #resolve google dns
 
 host -t mx udacity.com
 
+### lsof *L*i*s*t *O*pen *F*iles
+List open files and in this case show services that are listening or connected to. 
+
 ### *traceroute*
 combining `ping` and `host` as a network diagnostic tool.
 traceroute www.google.com #by default 30 hops
@@ -32,7 +35,9 @@ traceroute --max-hops=50 www.google.com #change max hops to 50 with each hop sen
 sudo tcpdump -n -c5 -i eth0 port 22 #5 packets captured
 
 ### [netcat](https://linux.die.net/man/1/nc)
-Simple program to talk to internet services, forms a thin wrapper around tcp. Lower layer tool than curl for e.g. 
+Simple program to talk to internet services, forms a thin wrapper around tcp. Lower layer tool than curl for e.g. http://nc110.sourceforge.net/
+
+#### Examples and tricks
 
 - Using netcat to talk to google and get an HTTP response back.
   Separationg of Layers. Netcat does not know anything about talking to a server in HTTP or making an HTTP request but by using `printf` you can make a HTTP request and this gets sent as a string over the wire to an internet service. The server at the receiving end will send a response (HTTP) as the request looks similar to or looks like a HTTP request. 
@@ -114,9 +119,44 @@ Date: Sat, 11 Nov 2017 12:21:37 GMT
   </style>
   <a href=//www.google.com/><span id=logo aria-label=Google></span></a>
   <p><b>405.</b> <ins>That’s an error.</ins>
-  <p>The request method <code>HEAD-MALSR</code> is inappropriate for the URL <code>/</code>.  <ins>That’s all we know.</ins>
+  <p>The request method <code>HEAD-MALSR</code> is inappropriate for the URL <code>/</code>.  <ins>That’s all we know.</ins>  
 ```
-todo
-- demonstrate HTTP verbs with netcat
+- Using to scan ports. Ports upto 1023 reserved for superuser/root while 1024-65535 available for any other programm. 
 
-Lookup reset packet/RST
+```
+nc -l localhost 1024 /listen on port 1024 on different terminal
+nc -zv localhost 1024-1028                                                             
+
+Connection to localhost 1024 port [tcp/*] succeeded!
+nc: connect to localhost port 1025 (tcp) failed: Connection refused
+nc: connect to localhost port 1026 (tcp) failed: Connection refused
+nc: connect to localhost port 1027 (tcp) failed: Connection refused
+nc: connect to localhost port 1028 (tcp) failed: Connection refused
+
+```
+
+- Acting as a webserver. Using netcat to act as a webserver and responding with a HTTP response.
+
+`printf 'HTTP/1.1 302 Moved\r\nLocation: https://www.bbc.co.uk' | nc -l 4445`
+
+```
+curl -v localhost:4445
+...
+HTTP/1.1 302 Moved
+
+//Once response received by nc it quits
+GET / HTTP/1.1
+Host: localhost:6665
+User-Agent: curl/7.47.0
+Accept: */*
+```
+If I use a brower then the any modern browser will redirect back to www.bbc.co.uk.
+
+
+
+
+  
+Lookup
+- demonstrate HTTP verbs with netcat
+- server algorithms for handling multiple requests
+- reset packet/RST
