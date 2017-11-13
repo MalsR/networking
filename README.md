@@ -13,7 +13,8 @@ ip route help
 ip route list
 
 ### *ping*
-ping -c3 8.8.8.8
+ping -c 3 8.8.8.8
+ping -c 7 google.com
 
 ### *host*
 host -t aaaa google.com 
@@ -153,7 +154,24 @@ Accept: */*
 If I use a brower then the any modern browser will redirect back to www.bbc.co.uk.
 
 
+### DNS (Domain Name System)
+Distributed directory that holds information about internet services. 
 
+- Used as a security mechanism for HTTP including SSL encryption and cookie privacy
+- Role of resolver, essentially DNS client in your operating system that tells which server to use when performing DNS lookups. 
+
+#### Types of DNS records
+
+#### Host
+Simple service for looking up records in DNS. 
+
+```
+//Resolve host google.com and get A record for google.com
+host -ta google.com
+```
+
+Reads on DNS
+- http://compsec101.antibozo.net/papers/dnssec/dnssec.html
 
   
 Lookup
