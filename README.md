@@ -163,12 +163,21 @@ Distributed directory that holds information about internet services.
 #### Types of DNS records
 
 #### Host
-Simple service for looking up records in DNS. 
+Simple service for looking up records in DNS.
 
 ```
 //Resolve host google.com and get A record for google.com
 host -ta google.com
 ```
+
+#### IPv4
+Dotted quads, represented as 4 bytes or 4 octets with each quad range of `0-255`.
+- So a v4 IP address has a bit width of 32 bits (4 bytes) or 32 bits wide i.e. 32 bits are used to represent this value in a packet.
+- So why is the highest TCP port number 65535? The space allocated or the bit width for a port number in a packet is 16 bits or 2 bytes therefore the max port number we can fit in a packet is 65535!
+
+Reads
+- https://en.wikipedia.org/wiki/IPv4
+
 
 Reads on DNS
 - http://compsec101.antibozo.net/papers/dnssec/dnssec.html
