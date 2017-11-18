@@ -160,6 +160,9 @@ Distributed directory that holds information about internet services.
 - Used as a security mechanism for HTTP including SSL encryption and cookie privacy
 - Role of resolver, essentially DNS client in your operating system that tells which server to use when performing DNS lookups. 
 
+Reads on DNS
+- http://compsec101.antibozo.net/papers/dnssec/dnssec.html
+
 #### Types of DNS records
 
 #### Host
@@ -174,15 +177,17 @@ host -ta google.com
 Dotted quads, represented as 4 bytes or 4 octets with each quad range of `0-255`.
 - So a v4 IP address has a bit width of 32 bits (4 bytes) or 32 bits wide i.e. 32 bits are used to represent this value in a packet.
 - So why is the highest TCP port number 65535? The space allocated or the bit width for a port number in a packet is 16 bits or 2 bytes therefore the max port number we can fit in a packet is 65535!
+- We write it as dotted quads purely as a convention since it's easy to read as opposed to reading a 32-bit numerical value.
+
+##### Adress exhaustion
+NAT - Network Address Translation, configuration in the router that maps internal private network addresses to internet services/public IP addreses. A workaround as a result of ipv4 address exhaustion. So does this mean with ipv6 we do not need NAT?
 
 Reads
 - https://en.wikipedia.org/wiki/IPv4
+- Private address allocation https://tools.ietf.org/html/rfc1918
+- Reserved IP addresses https://en.m.wikipedia.org/wiki/Reserved_IP_addresses
 
-
-Reads on DNS
-- http://compsec101.antibozo.net/papers/dnssec/dnssec.html
-
-  
+  
 Lookup
 - demonstrate HTTP verbs with netcat
 - server algorithms for handling multiple requests
