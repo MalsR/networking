@@ -192,3 +192,5 @@ Lookup
 - demonstrate HTTP verbs with netcat
 - server algorithms for handling multiple requests
 - reset packet/RST
+- network link
+- multi-link path (include and check bits per second)
