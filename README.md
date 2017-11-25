@@ -258,6 +258,12 @@ Reads
 - Private address allocation https://tools.ietf.org/html/rfc1918
 - Reserved IP addresses https://en.m.wikipedia.org/wiki/Reserved_IP_addresses
 
+
+### Protocol Layers
+
+Questions
+- The buffer in OS that is used for storing the data received wherr each byte position
+is used as the sequence number, does TCP use this per session created? 
   
 Lookup
 - demonstrate HTTP verbs with netcat
